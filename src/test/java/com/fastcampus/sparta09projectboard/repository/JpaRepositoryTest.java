@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-@ActiveProfiles("testdb")
+
 @DisplayName("JPA 연결 TEST")
 @Import(JpaConfig.class)
 @DataJpaTest
