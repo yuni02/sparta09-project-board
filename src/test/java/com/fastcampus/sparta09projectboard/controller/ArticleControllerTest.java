@@ -25,6 +25,7 @@ class ArticleControllerTest {
         mvc.perform(get("/articles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/index"))
                 .andExpect(model().attributeExists("articles"));
 
     }
@@ -36,6 +37,7 @@ class ArticleControllerTest {
         mvc.perform(get("/articles/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article"));
 
     }
