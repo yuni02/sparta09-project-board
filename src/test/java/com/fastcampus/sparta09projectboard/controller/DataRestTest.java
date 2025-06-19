@@ -1,6 +1,7 @@
 package com.fastcampus.sparta09projectboard.controller;
 
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 // 상대적으로 무거운 테스트
+@Disabled("Spring Data REST 통합테스는 불필요하므로 제외") // 해당 테스트 실행안되게 함
 @DisplayName("Data Rest - 테스트")
 @Transactional
 @AutoConfigureMockMvc
