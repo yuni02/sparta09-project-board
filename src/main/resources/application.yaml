@@ -3,6 +3,10 @@ debug: false
 management.endpoints.web.exposure.include: "*"
 # actuator? ?? ??? ? ?? ?? ?? ?
 
+# 서버 포트 설정 추가
+server:
+  port: 8081  # 원하는 포트 번호로 변경
+
 logging:
   level:
     com.fastcampus.sparta09projectboard: debug
@@ -30,3 +34,4 @@ spring:
   data.rest:
     base-path: /api
     detection-strategy: annotated
+
