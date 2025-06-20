@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 페이지</title>
+</head>
+<body>
+<header  id="header">
+</header>
+<main>
+  <header><h1>첫번째 글</h1></header>
+    <div class="row g-5">
+        <section class="col-md-3 col-lg-4 order-md-last">
+            <aside>
+                <p><span id="nickname">Uno</span></p>
+                <p><a id="email" href="mailto:djkehh@gmail.com">uno@mail.com</a></p>
+                <p><time id="created-at" datetime="2022-01-01T00:00:00">2022-01-01</time></p>
+            </aside>
+        </section>
+
+        <article id="article-content" class="col-md-9 col-lg-8">
+            <pre>본문</pre>
+        </article>
+    </div>
+
+    <div class="row g-5" id="article-buttons">
+        <form id="delete-article-form">
+            <div class="pb-5 d-grid gap-2 d-md-block">
+                <a class="btn btn-success me-md-2" role="button" id="update-article">수정</a>
+                <button class="btn btn-danger me-md-2" type="submit">삭제</button>
+            </div>
+        </form>
+    </div>
+    <div class="row g-5">
+        <nav id="pagination" aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo; prev</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">next &raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</main>
+<footer id="footer">
+</footer>
+
+</body>
+</html>
