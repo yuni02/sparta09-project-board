@@ -29,6 +29,7 @@
 * [api명세서](https://docs.google.com/spreadsheets/d/1ZDD5eHbfIcoQri37fmk7OmVPeSwSEOyQMG-CVfNH20Q/edit?gid=564540372#gid=564540372)
 
 ## 유스케이스 
+* 게시판 검색은 추후 구현 예정이다.
 ![유즈케이스 다이어그램](/document/use-case.svg)
 
 ## ERD
