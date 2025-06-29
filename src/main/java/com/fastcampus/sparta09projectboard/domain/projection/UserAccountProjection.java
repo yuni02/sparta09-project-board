@@ -9,7 +9,6 @@ public interface UserAccountProjection {
     String getUserId();
     String getEmail();
 
-    String getUsername();
     LocalDateTime getCreatedAt();
     String getCreatedBy();
     LocalDateTime getModifiedAt();

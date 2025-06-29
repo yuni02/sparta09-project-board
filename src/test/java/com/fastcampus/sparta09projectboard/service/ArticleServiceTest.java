@@ -3,11 +3,11 @@ package com.fastcampus.sparta09projectboard.service;
 import com.fastcampus.sparta09projectboard.domain.UserAccount;
 import com.fastcampus.sparta09projectboard.dto.ArticleDto;
 import com.fastcampus.sparta09projectboard.domain.Article;
-import com.fastcampus.sparta09projectboard.dto.ArticleUpdateDto;
 import com.fastcampus.sparta09projectboard.dto.UserAccountDto;
 import com.fastcampus.sparta09projectboard.repository.ArticleRepository;
 import com.fastcampus.sparta09projectboard.repository.UserAccountRepository;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,10 +18,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 
@@ -78,7 +77,7 @@ class ArticleServiceTest {
     // Given
     Article article = createArticle();
 
-    ArticleDto dto = createArticleDto("새 타이틀", "새 내용 #springboot", "저자", "1234");
+    ArticleDto dto = createArticleDto("새 타이틀", "새 내용 #springboot", "1234");
     given(articleRepository.getReferenceById(dto.id())).willReturn(article);
     given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(dto.userAccountDto().toEntity());
     willDoNothing().given(articleRepository).flush();
@@ -87,7 +86,12 @@ class ArticleServiceTest {
     sut.updateArticle(dto.id(), dto);
 
     // Then
-    then(articleRepository).should().save(any(Article.class));
+    assertThat(article)
+            .hasFieldOrPropertyWithValue("title", dto.title())
+            .hasFieldOrPropertyWithValue("content", dto.content());
+    then(articleRepository).should().getReferenceById(dto.id());
+    then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
+    then(articleRepository).should().flush();
   }
 
   @DisplayName("게시글 작성자가 아닌 사람이 수정 정보를 입력하면, 아무 것도 하지 않는다.")
@@ -97,7 +101,7 @@ class ArticleServiceTest {
     Long differentArticleId = 22L;
     Article differentArticle = createArticle(differentArticleId);
     differentArticle.setUserAccount(createUserAccount("John"));
-    ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "새 저자", "1234");
+    ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "1234");
     given(articleRepository.getReferenceById(differentArticleId)).willReturn(differentArticle);
     given(userAccountRepository.getReferenceById(dto.userAccountDto().userId()))
         .willReturn(dto.userAccountDto().toEntity());
@@ -117,7 +121,7 @@ class ArticleServiceTest {
     Article article = createArticle();
 
     willDoNothing().given(articleRepository).delete(any(Article.class));
-    ArticleDto dto = createArticleDto("새 타이틀", "새 내용 #springboot", "저자", "1234");
+    ArticleDto dto = createArticleDto("새 타이틀", "새 내용 #springboot", "1234");
 
     given(articleRepository.getReferenceById(dto.id())).willReturn(article);
     given(userAccountRepository.getReferenceById(dto.userAccountDto().userId()))
@@ -128,9 +132,7 @@ class ArticleServiceTest {
     Assertions.assertThat(article)
         .hasFieldOrPropertyWithValue("title", dto.title())
         .hasFieldOrPropertyWithValue("content", dto.content())
-        .hasFieldOrPropertyWithValue("password", dto.password())
-        .hasFieldOrPropertyWithValue("author", dto.author());
-    // Then
+        .hasFieldOrPropertyWithValue("password", dto.password());
     then(articleRepository).should().delete(any(Article.class));
   }
 
@@ -139,7 +141,7 @@ class ArticleServiceTest {
   }
 
   private Article createArticle(Long id) {
-    Article article = Article.of(createUserAccount(), "title", "content", "yunkyeong", "1234");
+    Article article = Article.of(createUserAccount(), "title", "content",  "1234");
 
     ReflectionTestUtils.setField(article, "id", id);
 
@@ -151,21 +153,20 @@ class ArticleServiceTest {
   }
 
   private UserAccount createUserAccount(String userId) {
-    return UserAccount.of(userId, "password", "uno@email.com", "Uno", null);
+    return UserAccount.of(userId, "password", "uno@email.com",  null);
   }
 
   private ArticleDto createArticleDto() {
-    return createArticleDto("title", "content", "yunkyeong", "1234");
+    return createArticleDto("title", "content", "1234");
   }
 
   private ArticleDto createArticleDto(
-      String title, String content, String password, String author) {
+      String title, String content, String password) {
     return ArticleDto.of(
         1L,
         createUserAccountDto(),
         title,
         content,
-        author,
         password,
         LocalDateTime.now(),
         "Uno",
@@ -178,7 +179,6 @@ class ArticleServiceTest {
         "uno",
         "password",
         "uno@mail.com",
-        "Uno",
         LocalDateTime.now(),
         "uno",
         LocalDateTime.now(),

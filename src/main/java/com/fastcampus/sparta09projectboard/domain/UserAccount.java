@@ -23,26 +23,24 @@ public class UserAccount extends AuditingFields {
     @Setter @Column(nullable = false) private String userPassword;
 
     @Setter @Column(length = 100) private String email;
-    @Setter @Column(length = 100) private String username;
 
 
     protected UserAccount() {}
 
-    private UserAccount(String userId, String userPassword, String email, String username,  String createdBy) {
+    private UserAccount(String userId, String userPassword, String email,  String createdBy) {
         this.userId = userId;
         this.userPassword = userPassword;
         this.email = email;
-        this.username = username;
         this.createdBy = createdBy;
         this.modifiedBy = createdBy;
     }
 
-    public static UserAccount of(String userId, String userPassword, String email, String username) {
-        return UserAccount.of(userId, userPassword, email, username, null);
+    public static UserAccount of(String userId, String userPassword, String email) {
+        return UserAccount.of(userId, userPassword, email,  null);
     }
 
-    public static UserAccount of(String userId, String userPassword, String email, String username,  String createdBy) {
-        return new UserAccount(userId, userPassword, email, username,  createdBy);
+    public static UserAccount of(String userId, String userPassword, String email,  String createdBy) {
+        return new UserAccount(userId, userPassword, email,createdBy);
     }
 
     @Override

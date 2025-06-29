@@ -7,19 +7,18 @@ public record UserAccountDto(
         String userId,
         String userPassword,
         String email,
-        String username,
         LocalDateTime createdAt,
         String createdBy,
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
 
-    public static UserAccountDto of(String userId, String userPassword, String email, String username) {
-        return new UserAccountDto(userId, userPassword, email, username,null, null, null, null);
+    public static UserAccountDto of(String userId, String userPassword, String email) {
+        return new UserAccountDto(userId, userPassword, email, null, null, null, null);
     }
 
-    public static UserAccountDto of(String userId, String userPassword, String email, String username, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
-        return new UserAccountDto(userId, userPassword, email, username,  createdAt, createdBy, modifiedAt, modifiedBy);
+    public static UserAccountDto of(String userId, String userPassword, String email,LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
+        return new UserAccountDto(userId, userPassword, email,  createdAt, createdBy, modifiedAt, modifiedBy);
     }
 
     public static UserAccountDto from(UserAccount entity) {
@@ -27,7 +26,6 @@ public record UserAccountDto(
                 entity.getUserId(),
                 entity.getUserPassword(),
                 entity.getEmail(),
-                entity.getUsername(),
                 entity.getCreatedAt(),
                 entity.getCreatedBy(),
                 entity.getModifiedAt(),
@@ -39,8 +37,7 @@ public record UserAccountDto(
         return UserAccount.of(
                 userId,
                 userPassword,
-                email,
-                username
+                email
         );
     }
 

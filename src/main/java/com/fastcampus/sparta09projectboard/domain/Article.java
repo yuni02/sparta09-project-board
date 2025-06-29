@@ -33,9 +33,6 @@ public class Article extends AuditingFields {
   @Column(nullable = false, length = 10000)
   private String content; // 본문
 
-  @Setter
-  @Column(nullable = false)
-  private String author; // 작성자
 
   @Setter
   @Column(nullable = false)
@@ -43,16 +40,15 @@ public class Article extends AuditingFields {
 
   protected Article() {}
 
-  private Article(UserAccount userAccount, String title, String content, String author, String password) {
+  private Article(UserAccount userAccount, String title, String content,String password) {
     this.userAccount = userAccount;
     this.title = title;
     this.content = content;
-    this.author = author;
     this.password = password;
   }
 
-  public static Article of(UserAccount userAccount, String title, String content, String author, String password) {
-    return new Article(userAccount, title, content, author, password);
+  public static Article of(UserAccount userAccount, String title, String content,  String password) {
+    return new Article(userAccount, title, content, password);
   }
 
   @Override

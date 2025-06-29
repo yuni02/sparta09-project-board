@@ -21,7 +21,7 @@ public record ArticleResponse(
     }
 
     public static ArticleResponse from(ArticleDto dto) {
-        String author = dto.userAccountDto().username();
+        String author = dto.userAccountDto().userId();
         if (author == null || author.isBlank()) {
             author = dto.userAccountDto().userId();
         }
