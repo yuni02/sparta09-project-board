@@ -15,12 +15,6 @@ import org.springframework.data.domain.Pageable;
 @RepositoryRestResource// spring data rest 설정 추가
 public interface ArticleRepository extends JpaRepository<Article, Long>, QuerydslPredicateExecutor<Article>, QuerydslBinderCustomizer<QArticle> {
 
-    Page<Article> findByTitleContaining(String title, Pageable pageable);
-    Page<Article> findByContentContaining(String content, Pageable pageable);
-//    Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
-//    Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
-
-//    void deleteByIdAndUserAccount_UserId(Long articleId, String userid);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {
@@ -33,4 +27,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Queryds
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
+
+    Page<Article> findAll(Pageable pageable);
 }
