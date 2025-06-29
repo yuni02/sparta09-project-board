@@ -9,16 +9,16 @@ public record ArticleRequest(
         String password
 ) {
 
-    public static ArticleRequest of(String title, String password, String content) {
-        return new ArticleRequest(title, password, content);
+    public static ArticleRequest of(String title, String content, String password) {
+        return new ArticleRequest(title, content, password);
     }
 
     public ArticleDto toDto(UserAccountDto userAccountDto) {
         return ArticleDto.of(
                 userAccountDto,
                 title,
-                password,
-                content
+                content,
+                password
         );
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#header" th:replace="~{header :: header}" />
+    <attr sel="#footer" th:replace="~{footer :: footer}" />
+
+    <attr sel="#signup-form" th:action="@{/signup}" th:method="post" />
+
+    <!-- 메시지 표시 로직 -->
+    <attr sel="#success-message" th:if="${message}" th:style="'display: block;'">
+        <attr sel="#success-text" th:text="${message}" />
+    </attr>
+    
+    <attr sel="#error-message" th:if="${error}" th:style="'display: block;'">
+        <attr sel="#error-text" th:text="${error}" />
+    </attr>
+</thlogic> 

@@ -17,7 +17,7 @@ public record ArticleDto(
         String modifiedBy
 ) {
 
-    public static ArticleDto of(UserAccountDto userAccountDto, String title,  String password, String content) {
+    public static ArticleDto of(UserAccountDto userAccountDto, String title, String content, String password) {
         return new ArticleDto(null, userAccountDto, title, content, password, null, null, null, null);
     }
 
@@ -43,8 +43,8 @@ public record ArticleDto(
         return Article.of(
                 userAccount,
                 title,
-                password,
-                content
+                content,
+                password
         );
     }
 

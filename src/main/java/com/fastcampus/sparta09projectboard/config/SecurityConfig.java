@@ -34,15 +34,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // API 경로 허용
                         .requestMatchers("/api/**").permitAll()
-                        // 로그인 관련 경로 모두 허용
-                        .requestMatchers("/login", "/login/**", "/error").permitAll()
-                        // 홈페이지와 게시판 목록 허용
-                        .requestMatchers(HttpMethod.GET, "/", "/articles").permitAll()
+                        // 로그인/회원가입 관련 경로 모두 허용
+                        .requestMatchers("/logout", "/login", "/login/**", "/signup", "/error").permitAll()
+                        // 홈페이지와 게시판 목록, 게시글 상세조회, 수정폼 조회 허용
+                        .requestMatchers(HttpMethod.GET, "/", "/articles", "/articles/*", "/articles/*/form").permitAll()
+                        // 게시글 삭제 POST 요청 허용 (비밀번호 기반)
+                        .requestMatchers(HttpMethod.POST, "/articles/*/delete").permitAll()
+                        // 게시글 수정 POST 요청 허용 (비밀번호 기반)
+                        .requestMatchers(HttpMethod.POST, "/articles/*/form").permitAll()
                         // 나머지는 인증 필요
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-//                        .loginPage("/login")
+                        .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/articles", true)
                         .failureUrl("/login?error=true")

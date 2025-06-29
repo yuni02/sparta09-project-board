@@ -171,6 +171,7 @@ class ArticleServiceTest {
         "uno",
         "password",
         "uno@mail.com",
+        "uno",
         LocalDateTime.now(),
         "uno",
         LocalDateTime.now(),

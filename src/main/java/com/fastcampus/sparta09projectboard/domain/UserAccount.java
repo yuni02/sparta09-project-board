@@ -38,12 +38,12 @@ public class UserAccount extends AuditingFields {
         this.modifiedBy = createdBy;
     }
 
-    public static UserAccount of(String userId, String userPassword,  String nickname, String email) {
-        return UserAccount.of(userId, userPassword,nickname, email,  null);
+    public static UserAccount of(String userId, String userPassword, String email, String nickname) {
+        return UserAccount.of(userId, userPassword, email, nickname, null);
     }
 
-    public static UserAccount of(String userId, String userPassword, String email,   String nickname,String createdBy) {
-        return new UserAccount(userId, userPassword, nickname, email,createdBy);
+    public static UserAccount of(String userId, String userPassword, String email, String nickname, String createdBy) {
+        return new UserAccount(userId, userPassword, email, nickname, createdBy);
     }
 
     @Override

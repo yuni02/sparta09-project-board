@@ -21,10 +21,15 @@ public class JpaConfig {
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
                 .map(Authentication::getPrincipal)
-                .map(BoardPrincipal.class::cast)
-                .map(BoardPrincipal::getUsername);
-
-
+                .map(principal -> {
+                    if (principal instanceof BoardPrincipal boardPrincipal) {
+                        return boardPrincipal.getUsername();
+                    } else if (principal instanceof String username) {
+                        return username;
+                    } else {
+                        return principal.toString();
+                    }
+                });
     }
 
 }
