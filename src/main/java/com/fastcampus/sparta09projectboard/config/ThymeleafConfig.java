@@ -15,20 +15,18 @@ public class ThymeleafConfig {
             SpringResourceTemplateResolver defaultTemplateResolver,
             Thymeleaf3Properties thymeleaf3Properties
     ) {
-        defaultTemplateResolver.setUseDecoupledLogic(thymeleaf3Properties.isDecoupledLogic());
+        defaultTemplateResolver.setUseDecoupledLogic(thymeleaf3Properties.decoupledLogic());
 
         return defaultTemplateResolver;
     }
 
 
-    @RequiredArgsConstructor
-    @Getter
     @ConfigurationProperties("spring.thymeleaf3")
-    public static class Thymeleaf3Properties {
+    public static record Thymeleaf3Properties(
         /**
          * Use Thymeleaf 3 Decoupled Logic
          */
-        private final boolean decoupledLogic;
-    }
+        boolean decoupledLogic
+    ) {}
 
 }

@@ -4,6 +4,7 @@ import com.fastcampus.sparta09projectboard.domain.UserAccount;
 import com.fastcampus.sparta09projectboard.dto.ArticleDto;
 import com.fastcampus.sparta09projectboard.domain.Article;
 import com.fastcampus.sparta09projectboard.dto.ArticleUpdateDto;
+import com.fastcampus.sparta09projectboard.dto.request.ArticleRequest;
 import com.fastcampus.sparta09projectboard.repository.ArticleRepository;
 import com.fastcampus.sparta09projectboard.repository.UserAccountRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -63,8 +64,8 @@ public class ArticleService {
         }
     }
 
-    public void deleteArticle(long articleId) {
-        articleRepository.deleteById(articleId);
+    public void deleteArticle(long articleId, String userId) {
+        articleRepository.deleteByIdAndUserAccount_UserId(articleId, userId);
     }
 
     @Transactional(readOnly = true)
@@ -76,6 +77,60 @@ public class ArticleService {
 
     public long getArticleCount() {
         return articleRepository.count();
+    }
+
+    public boolean verifyPassword(long articleId, String password) {
+        try {
+            Article article = articleRepository.findById(articleId)
+                    .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
+            return article.getPassword().equals(password);
+        } catch (EntityNotFoundException e) {
+            log.warn("게시글을 찾을 수 없습니다 - articleId: {}", articleId);
+            return false;
+        }
+    }
+
+    public void deleteArticleByPassword(long articleId, String password) {
+        try {
+            Article article = articleRepository.findById(articleId)
+                    .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
+            
+            if (article.getPassword().equals(password)) {
+                articleRepository.deleteById(articleId);
+            } else {
+                throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            }
+        } catch (EntityNotFoundException e) {
+            log.warn("게시글 삭제 실패. 게시글을 찾을 수 없습니다 - articleId: {}", articleId);
+            throw e;
+        }
+    }
+
+    public void updateArticleByPassword(Long articleId, ArticleRequest articleRequest, String password) {
+        try {
+            Article article = articleRepository.findById(articleId)
+                    .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
+            
+            if (article.getPassword().equals(password)) {
+                if (articleRequest.title() != null) { 
+                    article.setTitle(articleRequest.title()); 
+                }
+                if (articleRequest.content() != null) { 
+                    article.setContent(articleRequest.content()); 
+                }
+                // 비밀번호 변경도 허용
+                if (articleRequest.password() != null) {
+                    article.setPassword(articleRequest.password());
+                }
+                
+                articleRepository.flush();
+            } else {
+                throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            }
+        } catch (EntityNotFoundException e) {
+            log.warn("게시글 수정 실패. 게시글을 찾을 수 없습니다 - articleId: {}", articleId);
+            throw e;
+        }
     }
 
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="FastCampus" />
+    <title>로그인</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <header id="header">
+      헤더 삽입부
+      <hr />
+    </header>
+
+    <div class="container">
+      <header id="login-header" class="py-5 text-center">
+        <h1>로그인</h1>
+      </header>
+
+      <!-- 메시지 표시 영역 -->
+      <div id="message-area" class="row justify-content-md-center mb-3">
+        <div class="col-sm-8 col-lg-6">
+          <div id="success-message" class="alert alert-success" style="display: none">
+            <span id="success-text"></span>
+          </div>
+          <div id="error-message" class="alert alert-danger" style="display: none">
+            <span id="error-text"></span>
+          </div>
+        </div>
+      </div>
+
+      <form id="login-form" method="post">
+        <div class="row mb-3 justify-content-md-center">
+          <label for="username" class="col-sm-2 col-lg-1 col-form-label text-sm-end">사용자 ID</label>
+          <div class="col-sm-6 col-lg-5">
+            <input type="text" class="form-control" id="username" name="username" required />
+          </div>
+        </div>
+        <div class="row mb-3 justify-content-md-center">
+          <label for="password" class="col-sm-2 col-lg-1 col-form-label text-sm-end">비밀번호</label>
+          <div class="col-sm-6 col-lg-5">
+            <input type="password" class="form-control" id="password" name="password" required />
+          </div>
+        </div>
+        <div class="row mb-5 justify-content-md-center">
+          <div class="col-sm-8 col-lg-6 d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="submit" class="btn btn-primary me-md-2">로그인</button>
+            <a href="/signup" class="btn btn-outline-secondary">회원가입</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <footer id="footer">
+      <hr />
+      푸터 삽입부
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -19,14 +19,16 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Queryds
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {
         bindings.excludeUnlistedProperties(true);
-        bindings.including(root.title, root.content, root.author, root.createdAt, root.createdBy);
+        bindings.including(root.title, root.content, root.createdAt, root.createdBy);
         // likeIgnoreCase -> like '${v}' , containsIgnoreCase -> '%${v}$'
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
-        bindings.bind(root.author).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
 
     Page<Article> findAll(Pageable pageable);
+
+    void deleteByIdAndUserAccount_UserId(Long articleId, String userid);
+
 }
