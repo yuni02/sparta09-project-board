@@ -13,17 +13,17 @@ public record ArticleResponse(
         String password,
         LocalDateTime createdAt,
         String email,
-        String author
+        String nickname
 ) {
 
-    public static ArticleResponse of(Long id, String title, String content, String password, LocalDateTime createdAt, String email, String author) {
-        return new ArticleResponse(id, title, content, password, createdAt, email, author);
+    public static ArticleResponse of(Long id, String title, String content, String password, LocalDateTime createdAt, String email, String nickname) {
+        return new ArticleResponse(id, title, content, password, createdAt, email, nickname);
     }
 
     public static ArticleResponse from(ArticleDto dto) {
-        String author = dto.userAccountDto().userId();
-        if (author == null || author.isBlank()) {
-            author = dto.userAccountDto().userId();
+        String nickname = dto.userAccountDto().userId();
+        if (nickname == null || nickname.isBlank()) {
+            nickname = dto.userAccountDto().userId();
         }
 
         return new ArticleResponse(
@@ -33,7 +33,7 @@ public record ArticleResponse(
                 dto.password(),
                 dto.createdAt(),
                 dto.userAccountDto().email(),
-                author
+                nickname
         );
     }
 

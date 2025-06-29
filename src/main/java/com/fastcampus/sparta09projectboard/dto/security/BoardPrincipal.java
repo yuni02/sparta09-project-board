@@ -7,60 +7,63 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public record BoardPrincipal(
-    String username,
-    String password,
-    Collection<? extends GrantedAuthority> authorities,
-    String email)
-    implements UserDetails {
+        String username,
+        String password,
+        Collection<? extends GrantedAuthority> authorities,
+        String email,
+        String nickname
+) implements UserDetails {
 
-  public static BoardPrincipal of(String username, String password, String email) {
+  public static BoardPrincipal of(String username, String password, String email, String nickname) {
+    // 지금은 인증만 하고 권한을 다루고 있지 않아서 임의로 세팅한다.
     Set<RoleType> roleTypes = Set.of(RoleType.USER);
+
     return new BoardPrincipal(
-        username,
-        password,
-        roleTypes.stream()
-            .map(RoleType::getName)
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toUnmodifiableSet()),
-        email);
+            username,
+            password,
+            roleTypes.stream()
+                    .map(RoleType::getName)
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toUnmodifiableSet())
+            ,
+            email,
+            nickname
+    );
   }
 
-    public static BoardPrincipal from(UserAccountDto dto) {
-        return BoardPrincipal.of(
-                dto.userId(),
-                dto.userPassword(),
-                dto.email()
-        );
-    }
-
-    public UserAccountDto toDto() {
-        return UserAccountDto.of(
-                username,
-                password,
-                email
-        );
-    }
-
-  @Override
-  public String getPassword() {
-    return password;
+  public static BoardPrincipal from(UserAccountDto dto) {
+    return BoardPrincipal.of(
+            dto.userId(),
+            dto.userPassword(),
+            dto.email(),
+            dto.nickname()
+    );
   }
 
-  @Override
-  public String getUsername() {
-    return username;
+  public UserAccountDto toDto() {
+    return UserAccountDto.of(
+            username,
+            password,
+            email,
+            nickname
+    );
   }
 
-  // 인증 - 로그인 유무, 권한 - 기능에 대한 접근 여부
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return authorities;
-  }
+
+  @Override public String getUsername() { return username; }
+  @Override public String getPassword() { return password; }
+  @Override public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }
+
+  @Override public boolean isAccountNonExpired() { return true; }
+  @Override public boolean isAccountNonLocked() { return true; }
+  @Override public boolean isCredentialsNonExpired() { return true; }
+  @Override public boolean isEnabled() { return true; }
+
 
   public enum RoleType {
     USER("ROLE_USER");
@@ -71,4 +74,5 @@ public record BoardPrincipal(
       this.name = name;
     }
   }
+
 }

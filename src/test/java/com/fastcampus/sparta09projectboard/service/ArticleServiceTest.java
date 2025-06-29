@@ -71,7 +71,7 @@ class ArticleServiceTest {
     then(articleRepository).should().save(any(Article.class));
   }
 
-  @DisplayName("게시글 id와 수정 정보를 입력하면, 게시글을 수정한다.")
+  @DisplayName("게시글의 수정 정보를 입력하면, 게시글을 수정한다.")
   @Test
   void givenArticleAndModifiedInfo_whenUpdatingArticle_thenModifiesArticle() {
     // Given
@@ -81,7 +81,6 @@ class ArticleServiceTest {
     given(articleRepository.getReferenceById(dto.id())).willReturn(article);
     given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(dto.userAccountDto().toEntity());
     willDoNothing().given(articleRepository).flush();
-    given(articleRepository.save(any(Article.class))).willReturn(null);
     // When
     sut.updateArticle(dto.id(), dto);
 
@@ -118,22 +117,15 @@ class ArticleServiceTest {
   @Test
   void givenArticleId_whenDeletingArticle_thenDeletesArticle() {
     // Given
-    Article article = createArticle();
+    Long articleId = 1L;
+    String userId = "uno";
+    willDoNothing().given(articleRepository).deleteByIdAndUserAccount_UserId(articleId, userId);
 
-    willDoNothing().given(articleRepository).delete(any(Article.class));
-    ArticleDto dto = createArticleDto("새 타이틀", "새 내용 #springboot", "1234");
-
-    given(articleRepository.getReferenceById(dto.id())).willReturn(article);
-    given(userAccountRepository.getReferenceById(dto.userAccountDto().userId()))
-        .willReturn(dto.userAccountDto().toEntity());
-    willDoNothing().given(articleRepository).flush();
     // When
-    sut.updateArticle(1L, dto);
-    Assertions.assertThat(article)
-        .hasFieldOrPropertyWithValue("title", dto.title())
-        .hasFieldOrPropertyWithValue("content", dto.content())
-        .hasFieldOrPropertyWithValue("password", dto.password());
-    then(articleRepository).should().delete(any(Article.class));
+    sut.deleteArticle(articleId, userId);
+
+    // Then
+    then(articleRepository).should().deleteByIdAndUserAccount_UserId(articleId, userId);
   }
 
   private Article createArticle() {

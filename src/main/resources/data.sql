@@ -1,7 +1,7 @@
 
 -- 1. 사용자 먼저 삽입
 INSERT IGNORE INTO user_account (created_at, modified_at, user_id, created_by, email, modified_by, user_password)
-VALUES (now(), now(), 'yunkyeong', 'yunkyeong', 'yun@gmail.com', 'yunkyeong','1234');
+VALUES (now(), now(), 'yunkyeong', 'yunkyeong', 'yun@gmail.com', 'yunkyeong','{noop}1234');
 
 -- 2. 삽입 확인
 SELECT user_id FROM user_account WHERE user_id = 'yunkyeong';
