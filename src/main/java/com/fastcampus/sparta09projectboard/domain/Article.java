@@ -7,7 +7,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(
     indexes = {
       @Index(columnList = "title"),
@@ -20,6 +20,10 @@ public class Article extends AuditingFields {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Setter
+  @ManyToOne(optional = false)
+  private UserAccount userAccount; // 유저 정보 (ID)
 
   @Setter
   @Column(nullable = false)
@@ -37,19 +41,18 @@ public class Article extends AuditingFields {
   @Column(nullable = false)
   private String password; // 글 비번
 
-
-
   protected Article() {}
 
-  private Article(String title, String content, String author, String password) {
+  private Article(UserAccount userAccount, String title, String content, String author, String password) {
+    this.userAccount = userAccount;
     this.title = title;
     this.content = content;
     this.author = author;
     this.password = password;
   }
 
-  public static Article of(String title, String content, String author, String password) {
-    return new Article(title, content, author, password);
+  public static Article of(UserAccount userAccount, String title, String content, String author, String password) {
+    return new Article(userAccount, title, content, author, password);
   }
 
   @Override
