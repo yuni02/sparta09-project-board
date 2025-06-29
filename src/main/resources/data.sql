@@ -1,6 +1,6 @@
 
 -- 1. 사용자 먼저 삽입
-INSERT INTO user_account (created_at, modified_at, user_id, created_by, email, modified_by, username, user_password)
+INSERT IGNORE INTO user_account (created_at, modified_at, user_id, created_by, email, modified_by, username, user_password)
 VALUES (now(), now(), 'yunkyeong', 'yunkyeong', 'yun@gmail.com', 'yunkyeong', 'yunkyeong', '1234');
 
 -- 2. 삽입 확인

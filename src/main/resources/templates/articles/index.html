@@ -1,74 +1,78 @@
-<!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta author="author" content="yunkyeong Jang">
-    <title>게시판 페이지</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link href="/css/search-bar.css" rel="stylesheet">
-    <link href="/css/articles/table-header.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Uno Kim" />
+  <title>게시판 페이지</title>
+
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous"
+  />
+  <link href="/css/search-bar.css" rel="stylesheet" />
+  <link href="/css/articles/table-header.css" rel="stylesheet" />
 </head>
+
 <body>
-
 <header id="header">
+  헤더 삽입부
+  <hr />
 </header>
+
 <main class="container">
-    <div class="row">
+  <div class="row">
+    <table class="table" id="article-table">
+      <thead>
+      <tr>
+        <th class="title col-6"><a>제목</a></th>
+        <th class="content col-6"><a>본문</a></th>
+        <th class="user-id"><a>작성자</a></th>
+        <th class="created-at"><a>작성일</a></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="title"><a>첫글</a></td>
+        <td class="content">본문</td>
+        <td class="user-id">Uno</td>
+        <td class="created-at"><time>2022-01-01</time></td>
+      </tr>
+      <tr>
+        <td class="title"><a>두번째글</a></td>
+        <td class="content">본문</td>
+        <td class="user-id">Uno</td>
+        <td class="created-at"><time>2022-01-02</time></td>
+      </tr>
+      <tr>
+        <td class="title"><a>세번째글</a></td>
+        <td class="content">본문</td>
+        <td class="user-id">Uno</td>
+        <td class="created-at"><time>2022-01-03</time></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-        <table class="table">
-            <thead>
-            <th class="col-4">제목</th>
-            <th class="col-6">본문</th>
-            <th class="user-id">작성자</th>
-            <th class="created-at">작성일</th>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="title"><a>첫글</a></td>
-                <td><a>첫글에 대한 블라블라</a></td>
-                <td class="user-id"><a>Uno</a></td>
-                <td class="crated-at"><a>2022-01-01</a></td>
-            </tr>
-            <tr>
-                <td>두번째글</td>
-                <td>2번째 글에 대한 블라블라</td>
-                <td>Uno</td>
-                <td>2022-01-02</td>
-            </tr>
-            <tr>
-                <td>세번째글</td>
-                <td>3번쨰 글에 대한 블라블라</td>
-                <td>Uno</td>
-                <td>2022-01-03</td>
-            </tr>
-            </tbody>
-        </table>
+  <div class="row">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
     </div>
-    <div class="row">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
-        </div>
-    </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
-
+  </div>
 </main>
-<footer id="footer">
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
 
+<footer id="footer">
+  <hr />
+  푸터 삽입부
+</footer>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"
+></script>
 </body>
 </html>

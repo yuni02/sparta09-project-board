@@ -33,7 +33,7 @@ public record ArticleResponse(
                 dto.password(),
                 dto.createdAt(),
                 dto.userAccountDto().email(),
-                dto.author()
+                author
         );
     }
 

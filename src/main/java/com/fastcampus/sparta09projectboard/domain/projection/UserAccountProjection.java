@@ -8,8 +8,8 @@ import org.springframework.data.rest.core.config.Projection;
 public interface UserAccountProjection {
     String getUserId();
     String getEmail();
-    String getUserName();
-    String getMemo();
+
+    String getUsername();
     LocalDateTime getCreatedAt();
     String getCreatedBy();
     LocalDateTime getModifiedAt();
