@@ -38,13 +38,13 @@ Spring Boot
 - https://sparta09-project-board-28af86744abc.herokuapp.com/
 
 ## heroku 주요 명령어
-``` heroku create
+
+```
+heroku create
 heroku:git remote --app sparta09-project-board
 git push heroku main
 heroku logs --tail
 ```
-
-
 
 ## api 명세서
 
@@ -64,5 +64,3 @@ heroku logs --tail
 - 유즈케이스 다이어그램: [#4](https://github.com/djkeh/fastcampus-project-board/issues/4), https://viewer.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fdjkeh%2Ffastcampus-project-board%2Fmain%2Fdocument%2Fuse-case.svg
 - API Endpoint 구글 시트: [#1](https://github.com/djkeh/fastcampus-project-board/issues/1), https://docs.google.com/spreadsheets/d/1S2FW7_LlePGF95strSYFJEsEQKoyZ9nGHWM8wZgFmSU/edit?usp=sharing
 - 어드민 서비스: https://github.com/djkeh/fastcampus-project-board-admin
-
-
